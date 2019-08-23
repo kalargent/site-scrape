@@ -36,11 +36,6 @@ app.get("/scrape", (req, res) => {
         var $ = cheerio.load(response.data)
 
         $(".entry-wrap").each((i, element) => {
-            // var result = []; 
-
-            // result.title = $(element).find(".entry-title").text();
-            // result.link = $(element).find(".entry-title").children().attr("href");
-            // result.summary = $(element).find(".entry-content").text();
 
             var title = $(element).find(".entry-title").text();
             var link = $(element).find(".entry-title").children().attr("href");
@@ -62,6 +57,8 @@ app.get("/scrape", (req, res) => {
                 
         })
     })
+
+    res.send("Got the articles!"); 
 })
 
 // Get route to scrape entries from the web Site 
