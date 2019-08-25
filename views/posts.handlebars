@@ -1,0 +1,27 @@
+<div class="container">
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Link</th>
+                <th scope="col">Summary</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each posts}}
+            <tr>
+                <td>{{this.title}}</td>
+                <td>{{this.link}}</td>
+                <td>$ {{this.summary}}</td>
+                <td>
+                    <button data-id="{{this.id}}" class="save-btn"><i class="far fa-save"></i></button>
+                    
+                    <button data-id="{{this.id}}" class="notes-btn"><i class="far fa-sticky-note"></i></button>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

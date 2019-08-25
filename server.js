@@ -34,7 +34,18 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Mongo DB Connection 
-mongoose.connect("mongodb://localhost/lisbeth", { useNewUrlParser: true });
+var DB_Connect = process.env.MONGODB_URI || "mongodb://localhost/lisbeth"; 
+
+mongoose.connect(DB_Connect, { useNewUrlParser: true }, function (err) {
+    if (err) {
+        console.log(err); 
+    }
+    else {
+        console.log("connected to the db"); 
+    }
+});
+// mongoose.connect(MONGODB_URI); 
+// mongoose.connect("mongodb://localhost/lisbeth", { useNewUrlParser: true });
 
 // Listener to start the server
 app.listen(PORT, () => {
@@ -45,10 +56,13 @@ app.listen(PORT, () => {
 app.get("/", (req, res) => {
     // res.send("This is the main page"); 
     db.Posts.find({})
-        .then((dbPosts) => {
-            res.json(dbPosts); 
-            console.log(dbPosts); 
+        .then((posts) => {
+            // res.json(dbPosts); 
+            console.log(posts); 
             // console.log(res); 
+            res.render("posts", {
+                posts: posts
+            }); 
         })
         .catch ((err) => {
             res.json(err); 
