@@ -52,7 +52,7 @@ app.listen(PORT, () => {
     console.log("App running on Port " + PORT); 
 })
 
-// Root Route 
+// Root Route - Displays a list of the articles that were scraped 
 app.get("/", (req, res) => {
     // res.send("This is the main page"); 
     db.Posts.find({})
@@ -70,6 +70,7 @@ app.get("/", (req, res) => {
 
     }) 
 
+    // Scrapes the site for articles 
 app.get("/scrape", (req, res) => {
     axios.get("https://wordswithlisbeth.com/blog/").then((response) => {
         var $ = cheerio.load(response.data)
