@@ -70,7 +70,7 @@ app.get("/", (req, res) => {
 
     }) 
 
-    // Scrapes the site for articles 
+// Scrapes the site for articles 
 app.get("/scrape", (req, res) => {
     axios.get("https://wordswithlisbeth.com/blog/").then((response) => {
         var $ = cheerio.load(response.data)
@@ -101,6 +101,10 @@ app.get("/scrape", (req, res) => {
     res.send("Got the articles!"); 
 })
 
+// Adds a note to the post 
+
+
+// Shows the posts in raw json
 app.get("/posts", (req, res) => {
     db.Posts.find({})
         .then((dbPosts) => {

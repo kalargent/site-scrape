@@ -16,6 +16,10 @@ var PostsSchema = new Schema ({
 
     summary: {
         type: String
+    },
+
+    isSaved: {
+        default: false
     }
 
 })

@@ -56,7 +56,27 @@
         $(".notes-btn").on("click", function (event) {
             event.preventDefault();
             console.log("i clicked notes");
-            $("#note-modal").modal("toggle"); 
+           // $("#note-modal").modal("toggle"); 
+
+        var thisId = $(this).attr("data-id"); 
+
+        // $.ajax({
+           // method: "GET",
+            // url: "/notes" + thisId
+       // })
+
+        //.then(function(data) {
+         //   console.log(thisId)
+        //})
+
+        }); 
+
+        $(".save-btn").on("click", function (event) {
+            event.preventDefault();
+            console.log("i clicked save");
+          
+
+        var thisId = $(this).attr("data-id"); 
 
         }); 
     }); 
