@@ -60,14 +60,14 @@
 
         var thisId = $(this).attr("data-id"); 
 
-        // $.ajax({
-           // method: "GET",
-            // url: "/notes" + thisId
-       // })
+        $.ajax({
+            method: "GET",
+            url: "/notes" + thisId
+        })
 
-        //.then(function(data) {
-         //   console.log(thisId)
-        //})
+        .then(function(data) {
+            console.log(thisId)
+        })
 
         }); 
 

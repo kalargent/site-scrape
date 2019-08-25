@@ -102,7 +102,7 @@ app.get("/scrape", (req, res) => {
 })
 
 // Adds a note to the post 
-
+app.post("/notes/:id")
 
 // Shows the posts in raw json
 app.get("/posts", (req, res) => {
