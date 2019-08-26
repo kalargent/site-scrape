@@ -102,7 +102,17 @@ app.get("/scrape", (req, res) => {
 })
 
 // Adds a note to the post 
-app.post("/notes/:id")
+// app.post("/notes/:id", (req, res) => {
+//     db.Notes.create(req.body)
+
+//     .then((dbNote) => {
+//         return db.Posts.findOneAndUpdate({ _id: req.params.id }, { note: dbNote.id }, { new: true }); 
+//     })
+    
+//     .then((dbPosts) => {
+//         res.json(dbPosts)
+//     })
+// })
 
 // Shows the posts in raw json
 app.get("/posts", (req, res) => {
