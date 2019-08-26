@@ -102,17 +102,21 @@ app.get("/scrape", (req, res) => {
 })
 
 // Adds a note to the post 
-// app.post("/notes/:id", (req, res) => {
-//     db.Notes.create(req.body)
+app.post("/addNote", function (req, res) {
+    db.Notes.create(req.body)
 
-//     .then((dbNote) => {
-//         return db.Posts.findOneAndUpdate({ _id: req.params.id }, { note: dbNote.id }, { new: true }); 
-//     })
-    
-//     .then((dbPosts) => {
-//         res.json(dbPosts)
-//     })
-// })
+        .then(function (dbNote){
+            return db.Posts.findById({ _id: req.params.id }, { $push: {note: dbNote._id} }, {new: true}); 
+        })
+
+        .then(function(dbPosts) {
+            res.json(dbPosts); 
+        })
+
+        .catch (function (err) {
+            res.json(err); 
+        })
+})
 
 // Shows the posts in raw json
 app.get("/posts", (req, res) => {

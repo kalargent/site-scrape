@@ -30,17 +30,19 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h5 class="modal-title">Enter a Note!</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Modal body text goes here.</p>
+                <form action="/addNote" method="post">
+                    <input type="text" class ="title" name="title" placeholder="Title">
+                    <textarea type="text" class="note-text" name="body" placeholder="Write Note Here"></textarea>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" id="addNote">Save changes</button>
             </div>
         </div>
     </div>
@@ -56,29 +58,51 @@
         $(".notes-btn").on("click", function (event) {
             event.preventDefault();
             console.log("i clicked notes");
-           // $("#note-modal").modal("toggle"); 
+            $("#note-modal").modal("toggle");
 
-        var thisId = $(this).attr("data-id"); 
+            var thisId = $(this).attr("data-id");
 
-        $.ajax({
-            method: "GET",
-            url: "/notes" + thisId
+            // $.ajax({
+            // method: "GET",
+            // url: "/notes" + thisId
+            // })
+
+            // .then(function(data) {
+            // console.log(thisId)
+            // })
+
+        });
+
+        $("#addNote").on("click", function(event) {
+            event.preventDefault(); 
+            console.log("trying to add a note from modal"); 
+
+            var thisId = $(this).attr("data-id"); 
+
+            var newNote = {
+                title: $(".title").val, 
+                body: $(".note-text").val 
+            }
+
+            .ajax("/api/addNote" + thisId, {
+                type: "POST", 
+                data: newNote
+            })
+
+            .then(function (newNote) {
+                console.log(newNote)
+            })
         })
 
-        .then(function(data) {
-            console.log(thisId)
-        })
+    // Save to favs
+        //$(".save-btn").on("click", function (event) {
+            //event.preventDefault();
+            //console.log("i clicked save");
 
-        }); 
 
-        $(".save-btn").on("click", function (event) {
-            event.preventDefault();
-            console.log("i clicked save");
-          
+          //  var thisId = $(this).attr("data-id");
 
-        var thisId = $(this).attr("data-id"); 
-
-        }); 
-    }); 
+        //});
+    });
 
 </script>

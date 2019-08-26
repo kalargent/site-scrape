@@ -19,8 +19,15 @@ var PostsSchema = new Schema ({
     },
 
     isSaved: {
+        type: Boolean, 
         default: false
-    }
+    }, 
+
+    notes: [
+        {
+        type: Schema.Types.ObjectId, 
+        ref: "note"
+    }]
 
 })
 
