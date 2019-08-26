@@ -102,7 +102,7 @@ app.get("/scrape", (req, res) => {
 })
 
 // Adds a note to the post 
-app.post("/addNote", function (req, res) {
+app.post("/api/addNote", function (req, res) {
     db.Notes.create(req.body)
 
         .then(function (dbNote){
@@ -117,6 +117,12 @@ app.post("/addNote", function (req, res) {
             res.json(err); 
         })
 })
+
+// Updates the article to isSaved 
+app.put("/api/posts/:id", function (req, res) {
+    console.log(req.body); 
+})
+
 
 // Shows the posts in raw json
 app.get("/posts", (req, res) => {

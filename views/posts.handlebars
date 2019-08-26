@@ -37,7 +37,7 @@
             </div>
             <div class="modal-body">
                 <form action="/addNote" method="post">
-                    <input type="text" class ="title" name="title" placeholder="Title">
+                    <input type="text" class="title" name="title" placeholder="Title">
                     <textarea type="text" class="note-text" name="body" placeholder="Write Note Here"></textarea>
             </div>
             <div class="modal-footer">
@@ -60,49 +60,50 @@
             console.log("i clicked notes");
             $("#note-modal").modal("toggle");
 
-            var thisId = $(this).attr("data-id");
-
-            // $.ajax({
-            // method: "GET",
-            // url: "/notes" + thisId
-            // })
-
-            // .then(function(data) {
-            // console.log(thisId)
-            // })
+            // var thisId = $(this).attr("data-id"); 
 
         });
 
-        $("#addNote").on("click", function(event) {
-            event.preventDefault(); 
-            console.log("trying to add a note from modal"); 
+        $("#addNote").on("click", function (event) {
+            event.preventDefault();
+            console.log("trying to add a note from modal");
 
-            var thisId = $(this).attr("data-id"); 
+            var thisId = $(this).attr("data-id");
 
             var newNote = {
-                title: $(".title").val, 
-                body: $(".note-text").val 
+                title: $(".title").val,
+                body: $(".note-text").val
             }
 
-            .ajax("/api/addNote" + thisId, {
-                type: "POST", 
-                data: newNote
-            })
+                .ajax("/api/addNote/" + thisId, {
+                    type: "POST",
+                    data: newNote
+                })
 
-            .then(function (newNote) {
-                console.log(newNote)
-            })
+                .then(function (newNote) {
+                    console.log(newNote)
+                })
         })
 
-    // Save to favs
-        //$(".save-btn").on("click", function (event) {
-            //event.preventDefault();
-            //console.log("i clicked save");
+        // Save to favs
+        $(".save-btn").on("click", function (event) {
+            event.preventDefault();
+            console.log("i clicked save");
 
+            var thisId = $(this).attr("data-id");
+            console.log(thisId); 
 
-          //  var thisId = $(this).attr("data-id");
+            $.ajax("/api/posts/" + thisId, {
+                type:"PUT", 
+                data: { isSaved: true }
+            })
+            .then(
+                function(){
+                    console.log(thisId + "saved as a fav")
+                }
+            )
 
-        //});
+        });
     });
 
 </script>
