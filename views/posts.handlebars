@@ -1,29 +1,38 @@
 <div class="container">
+    <div class="row">
+        <!--START COL1 HERE -->
+        <div class="col-md-8 table-col">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Link</th>
+                        <th scope="col">Summary</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each posts}}
+                    <tr>
+                        <td>{{this.title}}</td>
+                        <td>{{this.link}}</td>
+                        <td>$ {{this.summary}}</td>
+                        <td>
+                            <button data-id="{{this.id}}" class="save-btn"><i class="far fa-save"></i></button>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Link</th>
-                <th scope="col">Summary</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each posts}}
-            <tr>
-                <td>{{this.title}}</td>
-                <td>{{this.link}}</td>
-                <td>$ {{this.summary}}</td>
-                <td>
-                    <button data-id="{{this.id}}" class="save-btn"><i class="far fa-save"></i></button>
+                            <button data-id="{{this.id}}" class="notes-btn"><i class="far fa-sticky-note"></i></button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
 
-                    <button data-id="{{this.id}}" class="notes-btn"><i class="far fa-sticky-note"></i></button>
-                </td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
+            <!--END THE COL HERE -->
+        </div>
+        <div class="col-med-4" id=("notes")>
+            <p>this is where the notes will go</p>
+        </div>
+    </div>
 </div>
 
 <div class="modal" tabindex="-1" role="dialog" id="note-modal">
@@ -58,9 +67,28 @@
         $(".notes-btn").on("click", function (event) {
             event.preventDefault();
             console.log("i clicked notes");
-            $("#note-modal").modal("toggle");
+            // $("#note-modal").modal("toggle");
+            $("#notes").empty();
 
-            // var thisId = $(this).attr("data-id"); 
+            var thisId = $(this).attr("data-id");
+
+            $.ajax({
+                type: "GET",
+                url: "/posts/" + thisId
+            })
+
+                .then(function (data) {
+                    console.log(data);
+                    $("#notes").append("<h2>" + data.title + "</h2>");
+                    $("#notes").append("<input id='titleinput' name='title' >");
+                    $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
+                    $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+
+                    if (data.note) {
+                        $("#titleinput").val(data.note.title);
+                        $("#bodyinput").val(data.note.body);
+                    }
+                })
 
         });
 
@@ -91,17 +119,17 @@
             console.log("i clicked save");
 
             var thisId = $(this).attr("data-id");
-            console.log(thisId); 
+            console.log(thisId);
 
             $.ajax("/api/posts/" + thisId, {
-                type:"PUT", 
+                type: "PUT",
                 data: { isSaved: true }
             })
-            .then(
-                function(){
-                    console.log(thisId + "saved as a fav")
-                }
-            )
+                .then(
+                    function () {
+                        console.log(thisId + "saved as a fav")
+                    }
+                )
 
         });
     });

@@ -101,22 +101,48 @@ app.get("/scrape", (req, res) => {
     res.send("Got the articles!"); 
 })
 
-// Adds a note to the post 
-app.post("/api/addNote", function (req, res) {
+// Get a specific post by ID and add a note 
+app.get("/posts/:id", function (req, res) {
+    db.Posts.findOne({ _id:req.params.id })
+    .populate("note")
+    .then(function(dbPosts) {
+        res.json(dbPosts); 
+    })
+    .catch(function(err){
+        res.json(err); 
+    }); 
+})
+
+app.post("/posts/:id", function (req, res) {
     db.Notes.create(req.body)
-
-        .then(function (dbNote){
-            return db.Posts.findById({ _id: req.params.id }, { $push: {note: dbNote._id} }, {new: true}); 
+        .then(function(dbNote) {
+            return db.Posts.findOneAndUpdate( { _id: req.params.id }, { note: dbNote._id }, { new: true } ); 
         })
-
-        .then(function(dbPosts) {
+        .then (function (dbPosts) {
             res.json(dbPosts); 
         })
-
-        .catch (function (err) {
+        .catch(function(err) {
             res.json(err); 
         })
 })
+
+
+// Adds a note to the post 
+// app.post("/api/addNote", function (req, res) {
+//     db.Notes.create(req.body)
+
+//         .then(function (dbNote){
+//             return db.Posts.findById({ _id: req.params.id }, { $push: {note: dbNote._id} }, {new: true}); 
+//         })
+
+//         .then(function(dbPosts) {
+//             res.json(dbPosts); 
+//         })
+
+//         .catch (function (err) {
+//             res.json(err); 
+//         })
+// })
 
 // Updates the article to isSaved 
 app.put("/api/posts/:id", function (req, res) {
