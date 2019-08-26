@@ -77,9 +77,9 @@ app.get("/scrape", (req, res) => {
 
         $(".entry-wrap").each((i, element) => {
 
-            var title = $(element).find(".entry-title").text();
+            var title = $(element).find(".entry-title").text().trim();
             var link = $(element).find(".entry-title").children().attr("href");
-            var summary = $(element).find(".entry-content").text();
+            var summary = $(element).find(".entry-content").text().trim().trim('\nRead More');
 
             db.Posts.create({
                 title:title, 
