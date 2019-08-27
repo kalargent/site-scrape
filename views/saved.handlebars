@@ -127,20 +127,5 @@
 
     });
 
-   
-   // Click to view Saved Posts 
-    $("#saved-list").on("click", function(event) {
-        event.preventDefault(); 
-        console.log("i clicked to view saved posts"); 
-
-        $.ajax ("/api/saved", {
-            type: "GET", 
-        })
-            .then(function() {
-                console.log("displaying saved"); 
-            })
-    })
-
-
 
 </script>

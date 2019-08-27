@@ -61,7 +61,7 @@ app.get("/", (req, res) => {
     db.Posts.find({})
         .then((posts) => {
             // res.json(dbPosts); 
-            console.log(posts); 
+            // console.log(posts); 
             // console.log(res); 
             res.render("posts", {
                 posts: posts
@@ -143,6 +143,30 @@ app.put("/api/posts/:id", function (req, res) {
             res.json(dbPosts); 
         })
 })
+
+// View saved posts 
+app.get("/api/saved", (req, res) => {
+    console.log("req body below"); 
+    console.log(req.body); 
+    res.send("This is the saved list"); 
+    // db.Posts.find({
+    //         where: {
+    //             isSaved:true, 
+    //         }
+    // })
+    //     .then((posts) => {
+    //         // res.json(dbPosts); 
+    //         console.log(posts); 
+    //         // console.log(res); 
+    //         res.render("saved", {
+    //             posts: posts
+    //         }); 
+    //     })
+    //     .catch ((err) => {
+    //         res.json(err); 
+    //     })
+
+    }) 
 
 
 // Shows the posts in raw json
