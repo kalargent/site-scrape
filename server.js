@@ -146,25 +146,21 @@ app.put("/api/posts/:id", function (req, res) {
 
 // View saved posts 
 app.get("/api/saved", (req, res) => {
-    console.log("req body below"); 
-    console.log(req.body); 
-    res.send("This is the saved list"); 
-    // db.Posts.find({
-    //         where: {
-    //             isSaved:true, 
-    //         }
-    // })
-    //     .then((posts) => {
-    //         // res.json(dbPosts); 
-    //         console.log(posts); 
-    //         // console.log(res); 
-    //         res.render("saved", {
-    //             posts: posts
-    //         }); 
-    //     })
-    //     .catch ((err) => {
-    //         res.json(err); 
-    //     })
+    // console.log("req body below"); 
+    // console.log(req.body); 
+
+    db.Posts.find({ isSaved: true })
+        .then((posts) => {
+            // res.json(dbPosts); 
+            console.log(posts); 
+            // console.log(res); 
+            res.render("saved", {
+                posts: posts
+            }); 
+        })
+        .catch ((err) => {
+            res.json(err); 
+        })
 
     }) 
 
