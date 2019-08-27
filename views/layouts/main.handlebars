@@ -26,6 +26,7 @@
     <div class="container">
     <h1>Site Scraper</h1>
     <button id="saved-list">Saved Posts</button>
+    <button id="all-list">All Posts</button>
     <br>
     <hr>
     <br>
@@ -35,7 +36,25 @@
     {{{body}}}
 
     </div>
+<script type="text/javascript">
 
+ // Click to view Saved Posts 
+    $("#saved-list").on("click", function(event) {
+        event.preventDefault(); 
+        console.log("i clicked to view saved posts"); 
+        window.location.href = "/saved";  
+
+    })
+
+           // Click to view Saved Posts 
+    $("#all-list").on("click", function(event) {
+        event.preventDefault(); 
+        console.log("i clicked to view all posts"); 
+        window.location.href = "/";  
+
+    })
+
+</script>
     
 </body>
 

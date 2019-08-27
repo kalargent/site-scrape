@@ -18,7 +18,7 @@
                         <td>{{this.link}}</td>
                         <td>{{this.summary}}</td>
                         <td>
-                            <button data-id="{{this.id}}" class="save-btn"><i class="far fa-save"></i></button>
+                            <button data-id="{{this.id}}" class="remove-btn"><i class="far fa-trash-alt"></i></button>
 
                             <button data-id="{{this.id}}" class="notes-btn"><i class="far fa-sticky-note"></i></button>
                         </td>
@@ -34,28 +34,6 @@
         </div>
     </div>
 </div>
-
-{{!-- <div class="modal" tabindex="-1" role="dialog" id="note-modal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Enter a Note!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="/addNote" method="post">
-                    <input type="text" class="title" name="title" placeholder="Title">
-                    <textarea type="text" class="note-text" name="body" placeholder="Write Note Here"></textarea>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="addNote">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div> --}}
 
 <!--Javascript -->
 

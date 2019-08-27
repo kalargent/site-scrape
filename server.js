@@ -73,6 +73,24 @@ app.get("/", (req, res) => {
 
     }) 
 
+    // View saved posts 
+app.get("/saved", (req, res) => {
+
+    db.Posts.find({ isSaved: true })
+        .then((saved) => {
+            console.log(saved);  
+            res.render("saved", {
+                posts: saved
+            }); 
+        })
+        .catch ((err) => {
+            res.json(err); 
+        })
+
+    }) 
+
+
+
 // Scrapes the site for articles 
 app.get("/scrape", (req, res) => {
     axios.get("https://wordswithlisbeth.com/blog/").then((response) => {
@@ -144,25 +162,7 @@ app.put("/api/posts/:id", function (req, res) {
         })
 })
 
-// View saved posts 
-app.get("/api/saved", (req, res) => {
-    // console.log("req body below"); 
-    // console.log(req.body); 
 
-    db.Posts.find({ isSaved: true })
-        .then((posts) => {
-            // res.json(dbPosts); 
-            console.log(posts); 
-            // console.log(res); 
-            res.render("saved", {
-                posts: posts
-            }); 
-        })
-        .catch ((err) => {
-            res.json(err); 
-        })
-
-    }) 
 
 
 // Shows the posts in raw json
