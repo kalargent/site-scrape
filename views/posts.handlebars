@@ -1,4 +1,32 @@
-<div class="container">
+<div class="row">
+
+    {{#each posts}}
+    <div class="col s6 indigo lighten-5">
+        <div class="card" style="height:300px">
+            <div class="card-image waves-effect waves-block waves-light">
+                <!--put the image here using handlebars"-->
+                <img class="activator center" src={{this.image}} style="max-height:200px">
+            </div>
+            <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4"><a href={{this.link}}>{{this.title}}</a>
+                    <span data-id="{{this.id}}" class="save-btn"><i class="far fa-save right"></i></span>
+                    <span data-id="{{this.id}}" class="notes-btn"><i class="far fa-sticky-note right"></i></span></span>
+                {{!-- <p><a href={{this.title}}>{{this.link}}</a></p> --}}
+            </div>
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4" id="notes{{this.id}}"><i class="material-icons right">close</i></span>
+
+
+                {{!-- <button data-id="{{this.id}}" class="save-btn"><i class="far fa-save"></i></button> --}}
+
+                {{!-- <button data-id="{{this.id}}" class="notes-btn"><i class="far fa-sticky-note"></i></button> --}}
+            </div>
+        </div>
+    </div>
+{{/each}}
+</div>
+
+{{!-- <div class="container">
     <div class="row">
         <!--START COL1 HERE -->
         <div class="col-md-8 table-col">
@@ -33,7 +61,7 @@
             <p>this is where the notes will go</p>
         </div>
     </div>
-</div>
+</div> --}}
 
 
 <!--Javascript -->
@@ -56,13 +84,13 @@
 
             .then(function (data) {
                 console.log(data);
-                $("#notes").append("<h2>" + data.title + "</h2>");
-                $("#notes").append("<input id='titleinput' name='title' >");
-                $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
-                $("#notes").append("<button class='add' data-id='" + data._id + "' id='savenote'>Add a Note</button>");
+                $("#notes" + thisId).append("<h6>" + data.title + "</h6>");
+                $("#notes"+ thisId).append("<input id='input-field' name='title' >");
+                $("#notes"+thisId).append("<textarea class='materialize-textarea' id='bodyinput' name='body'></textarea>");
+                $("#notes"+thisId).append("<button class='add' data-id='" + data._id + "' id='savenote'>Add a Note</button>");
 
                 if (data.note[0]) {
-                    console.log(data.note[0]); 
+                    console.log(data.note[0]);
                     $("#titleinput").val(data.note[0].title);
                     $("#bodyinput").val(data.note[0].body);
                 }
@@ -78,7 +106,7 @@
         $.ajax({
             type: "POST",
             url: "/posts/" + thisId,
-            data: { 
+            data: {
                 title: $("#titleinput").val(),
                 body: $("#bodyinput").val()
             }
@@ -95,9 +123,9 @@
 
         $.ajax("/api/posts/" + thisId, {
             type: "PUT",
-            data: {isSaved: true}
+            data: { isSaved: true }
         })
-            .then( 
+            .then(
                 function () {
                     // console.log(data)
                     console.log(thisId + "saved as a fav")
@@ -106,7 +134,7 @@
 
     });
 
-   
+
 
 
 

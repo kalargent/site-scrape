@@ -23,6 +23,10 @@ var PostsSchema = new Schema ({
         default: false
     }, 
 
+    image: {
+        type: String
+    },
+
     note: [
         {
         type: Schema.Types.ObjectId, 

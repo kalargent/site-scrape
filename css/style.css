@@ -1,6 +1,10 @@
-#scrapedPosts {
+/* #scrapedPosts {
         display: inline-block;
         overflow: auto;
         width: 60%;
         height: 700px
+} */
+
+.card {
+        min-width: 200px;
 }
