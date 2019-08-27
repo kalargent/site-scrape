@@ -82,38 +82,24 @@
                 $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
                 $("#notes").append("<button class='add' data-id='" + data._id + "' id='savenote'>Add a Note</button>");
 
-                if (data.note) {
-                    $("#titleinput").val(data.note.title);
-                    $("#bodyinput").val(data.note.body);
+                if (data.note[0]) {
+                    console.log(data.note[0]); 
+                    $("#titleinput").val(data.note[0].title);
+                    $("#bodyinput").val(data.note[0].body);
                 }
             })
 
     });
 
-    //$("#savenote").on("click", function (event) {
-    //event.preventDefault();
-    //console.log("trying to save a note");
-
-    // var thisId = $(this).attr("data-id");
-
-    //.ajax("/api/addNote/" + thisId, {
-    //  type: "POST",
-    //data: newNote
-    //})
-
-    //.then(function (newNote) {
-    //  console.log(newNote)
-    //})
-    // })
-
     $(document).on("click", "#savenote", function () {
         console.log("i'm adding a note");
         var thisId = $(this).attr("data-id");
+        console.log("saving a note to " + thisId)
 
         $.ajax({
             type: "POST",
             url: "/posts/" + thisId,
-            data: {
+            data: { 
                 title: $("#titleinput").val(),
                 body: $("#bodyinput").val()
             }

@@ -115,7 +115,9 @@ app.get("/posts/:id", function (req, res) {
 
 app.post("/posts/:id", function (req, res) {
     db.Notes.create(req.body)
+    // console.log(req.body)
         .then(function(dbNote) {
+            console.log(req.body)
             return db.Posts.findOneAndUpdate( { _id: req.params.id }, { note: dbNote._id }, { new: true } ); 
         })
         .then (function (dbPosts) {
@@ -126,23 +128,6 @@ app.post("/posts/:id", function (req, res) {
         })
 })
 
-
-// Adds a note to the post 
-// app.post("/api/addNote", function (req, res) {
-//     db.Notes.create(req.body)
-
-//         .then(function (dbNote){
-//             return db.Posts.findById({ _id: req.params.id }, { $push: {note: dbNote._id} }, {new: true}); 
-//         })
-
-//         .then(function(dbPosts) {
-//             res.json(dbPosts); 
-//         })
-
-//         .catch (function (err) {
-//             res.json(err); 
-//         })
-// })
 
 // Updates the article to isSaved 
 app.put("/api/posts/:id", function (req, res) {

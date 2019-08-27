@@ -23,10 +23,10 @@ var PostsSchema = new Schema ({
         default: false
     }, 
 
-    notes: [
+    note: [
         {
         type: Schema.Types.ObjectId, 
-        ref: "note"
+        ref: "Note"
     }]
 
 })
