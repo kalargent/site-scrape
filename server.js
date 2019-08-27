@@ -4,6 +4,9 @@ var mongoose = require("mongoose");
 // var expressLayouts = require("express-ejs-layouts"); 
 var exphbs = require("express-handlebars");
 
+// bringing in the mongo objectID 
+
+
 // Scrapers 
 var axios = require("axios"); 
 var cheerio = require("cheerio"); 
@@ -132,6 +135,13 @@ app.post("/posts/:id", function (req, res) {
 // Updates the article to isSaved 
 app.put("/api/posts/:id", function (req, res) {
     console.log(req.body); 
+    console.log(req.params); 
+    
+    db.Posts.findOneAndUpdate( { _id: req.params.id }, req.body, { new: true })
+        .then(function(dbPosts) {
+            console.log(dbPosts)
+            res.json(dbPosts); 
+        })
 })
 
 

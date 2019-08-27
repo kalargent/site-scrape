@@ -116,10 +116,11 @@
 
         $.ajax("/api/posts/" + thisId, {
             type: "PUT",
-            data: { isSaved: true }
+            data: {isSaved: true}
         })
-            .then(
+            .then( 
                 function () {
+                    // console.log(data)
                     console.log(thisId + "saved as a fav")
                 }
             )
