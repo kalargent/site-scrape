@@ -6,19 +6,21 @@
                 <thead>
                     <tr>
                         <th scope="col">Title</th>
-                        <th scope="col">Link</th>
-                        <th scope="col">Summary</th>
+                        {{!-- <th scope="col">Summary</th> --}}
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {{#each posts}}
                     <tr>
-                        <td>{{this.title}}</td>
-                        <td>{{this.link}}</td>
-                        <td>{{this.summary}}</td>
                         <td>
-                            <button data-id="{{this.id}}" class="remove-btn"><i class="far fa-trash-alt"></i></button>
+                            <a href={{this.link}}>{{this.title}}</a>
+                            <p>{{this.summary}}</p>
+                        </td>
+                        {{!-- <td>{{this.link}}</td> --}}
+                        {{!-- <td>{{this.summary}}</td> --}}
+                        <td>
+                            <button data-id="{{this.id}}" class="save-btn"><i class="far fa-save"></i></button>
 
                             <button data-id="{{this.id}}" class="notes-btn"><i class="far fa-sticky-note"></i></button>
                         </td>
@@ -30,10 +32,14 @@
             <!--END THE COL HERE -->
         </div>
         <div class="col-med-4" id="notes">
-            <p>this is where the notes will go</p>
+            {{!-- <h6>this is a title of a post </h6>
+            <input id='titleinput' name='title'><br>
+            <textarea id='bodyinput' name='body'></textarea><br>
+            <button class='add' data-id='1236' id='savenote'>Add a Note</button> --}}
         </div>
     </div>
 </div>
+
 
 <!--Javascript -->
 
@@ -55,13 +61,13 @@
 
             .then(function (data) {
                 console.log(data);
-                $("#notes").append("<h2>" + data.title + "</h2>");
-                $("#notes").append("<input id='titleinput' name='title' >");
-                $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
+                $("#notes").append("<h6>" + data.title + "</h6>");
+                $("#notes").append("<input id='titleinput' name='title' > <br>");
+                $("#notes").append("<textarea id='bodyinput' name='body'></textarea> <br>");
                 $("#notes").append("<button class='add' data-id='" + data._id + "' id='savenote'>Add a Note</button>");
 
                 if (data.note[0]) {
-                    console.log(data.note[0]); 
+                    console.log(data.note[0]);
                     $("#titleinput").val(data.note[0].title);
                     $("#bodyinput").val(data.note[0].body);
                 }
@@ -77,7 +83,7 @@
         $.ajax({
             type: "POST",
             url: "/posts/" + thisId,
-            data: { 
+            data: {
                 title: $("#titleinput").val(),
                 body: $("#bodyinput").val()
             }
@@ -94,9 +100,9 @@
 
         $.ajax("/api/posts/" + thisId, {
             type: "PUT",
-            data: {isSaved: true}
+            data: { isSaved: true }
         })
-            .then( 
+            .then(
                 function () {
                     // console.log(data)
                     console.log(thisId + "saved as a fav")
@@ -104,6 +110,11 @@
             )
 
     });
+
+
+
+
+
 
 
 </script>
