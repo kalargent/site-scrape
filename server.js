@@ -95,7 +95,6 @@ app.get("/saved", (req, res) => {
     app.get("/clear", (req, res) => {
         console.log("clear"); 
         db.Posts.deleteMany({})
-        db.Notes.deleteMany({})
             .then(() => {
                 res.render("posts", {
 
@@ -194,7 +193,7 @@ app.put("/api/posts/:id", function (req, res) {
         })
 })
 
-app.put("/api/delete/:id", function (req, res) {
+app.put("/api/remove/:id", function (req, res) {
     console.log(req.body); 
     console.log(req.params); 
     

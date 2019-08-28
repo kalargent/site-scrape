@@ -132,7 +132,8 @@
         console.log("i clicked save");
 
         var thisId = $(this).attr("data-id");
-        console.log(thisId.isSaved);
+        console.log(thisId);
+
         if (thisId.isSaved === true) {
             $ajax("/api/posts/" + thisId, {
                 type: "PUT",
@@ -144,14 +145,14 @@
                 })
 
         } else {
-            $.ajax("/api/delete/" + thisId, {
+            $.ajax("/api/remove/" + thisId, {
                 type: "PUT",
                 data: { isSaved: true }
             })
                 .then(
                     function () {
                         // console.log(data)
-                        console.log(thisId + "saved as a fav")
+                        console.log(thisId + " saved as a fav")
                     }
                 )
         }
