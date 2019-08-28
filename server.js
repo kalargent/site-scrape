@@ -79,7 +79,7 @@ app.get("/saved", (req, res) => {
     db.Posts.find({ isSaved: true })
         .then((saved) => {
             console.log(saved);  
-            res.render("saved", {
+            res.render("posts", {
                 posts: saved
             }); 
         })
@@ -101,13 +101,14 @@ app.get("/scrape", (req, res) => {
             var title = $(element).find(".entry-title").text().trim();
             var link = $(element).find(".entry-title").children().attr("href");
             var summary = $(element).find(".entry-content").text().trim();
-            var img = $(element).find(".entry-thumb").attr("src"); 
-            console.log(img); 
+            var image = $(element).find(".entry-thumb").children().attr("src"); 
+            console.log(image); 
 
             db.Posts.create({
                 title:title, 
                 link:link,  
-                summary:summary
+                summary:summary, 
+                image:image
             }, 
             (err, insert) => {
                 if (err) {

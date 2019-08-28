@@ -14,13 +14,15 @@
                     {{#each posts}}
                     <tr>
                         <td>
-                            <a href={{this.link}}>{{this.title}}</a>
+                            <img src="{{this.image}}" width="200" style="float:left; margin-right: 10px">
+                            <a href="{{this.link}}">{{this.title}}</a>
                             <p>{{this.summary}}</p>
+
                         </td>
                         {{!-- <td>{{this.link}}</td> --}}
                         {{!-- <td>{{this.summary}}</td> --}}
                         <td>
-                            <button data-id="{{this.id}}" class="save-btn"><i class="far fa-save"></i></button>
+                            <button data-id="{{this.id}}" class="save-btn"><i class="far fa-star"></i></button>
 
                             <button data-id="{{this.id}}" class="notes-btn"><i class="far fa-sticky-note"></i></button>
                         </td>
