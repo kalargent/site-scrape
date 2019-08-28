@@ -94,11 +94,19 @@
     })
 
     // Remove a Note 
-    $(document).on("click", "#deletenote", function() {
-        console.log("i want to remove this note"); 
+    $(document).on("click", "#deletenote", function () {
+        console.log("i want to remove this note");
+        {{!-- var thisId = $(this).attr("data-id");
+        console.log("removing a note from " + thisId)
+
+        $.ajax({
+            type: "PUT",
+            url: "posts" + thisId,
+        }) --}}
+
     })
- 
-    // Save to favs
+
+    {{!-- // Save to favs
     $(".save-btn").on("click", function (event) {
         event.preventDefault();
         console.log("i clicked save");
@@ -116,6 +124,37 @@
                     console.log(thisId + "saved as a fav")
                 }
             )
+
+    }); --}}
+
+    $(".save-btn").on("click", function (event) {
+        event.preventDefault();
+        console.log("i clicked save");
+
+        var thisId = $(this).attr("data-id");
+        console.log(thisId.isSaved);
+        if (thisId.isSaved === true) {
+            $ajax("/api/posts/" + thisId, {
+                type: "PUT",
+                data: { isSaved: false }
+            })
+
+                .then(function () {
+                    console.log(thisId + " removed from favs");
+                })
+
+        } else {
+            $.ajax("/api/delete/" + thisId, {
+                type: "PUT",
+                data: { isSaved: true }
+            })
+                .then(
+                    function () {
+                        // console.log(data)
+                        console.log(thisId + "saved as a fav")
+                    }
+                )
+        }
 
     });
 

@@ -30,7 +30,7 @@
     <!-- Font Awesome Kit Link -->
     <script src="https://kit.fontawesome.com/b7ff529076.js"></script>
 
-    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../public/assets/css/style.css">
 
 </head>
 
@@ -39,6 +39,8 @@
     <h1>Site Scraper</h1>
     <button id="saved-list"> <i class="fas fa-star"></i> Favorites</button>
     <button id="all-list"><i class="fas fa-rss-square"></i> All Posts</button>
+    <button id="clear-list"><i class="fas fa-trash-alt"></i> Clear Posts</button>
+    <button id="scrape-list"><i class="fas fa-file-download"></i> Get Posts</button>
     <br>
     <hr>
     <br>
@@ -62,6 +64,22 @@
     $("#all-list").on("click", function(event) {
         event.preventDefault(); 
         console.log("i clicked to view all posts"); 
+        window.location.href = "/";  
+
+    })
+
+    // Clear Posts 
+     $("#clear-list").on("click", function(event) {
+        event.preventDefault(); 
+        console.log("i clicked to clear the posts"); 
+        window.location.href = "/clear";  
+
+    })
+
+    // Scrape Posts 
+     $("#scrape-list").on("click", function(event) {
+        event.preventDefault(); 
+        console.log("i clicked to clear the posts"); 
         window.location.href = "/";  
 
     })

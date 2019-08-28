@@ -22,6 +22,11 @@ var db = require("./models");
 // app.use(expressLayouts); 
 // app.set("view engine", "ejs"); 
 
+// Parse request body as JSON
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.static(__dirname + "/public"));
+
 // Handlebars
 app.engine(
     "handlebars",
@@ -31,10 +36,7 @@ app.engine(
   );
   app.set("view engine", "handlebars");
 
-// Parse request body as JSON
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-app.use(express.static("public"));
+
 
 // Mongo DB Connection 
 var DB_Connect = process.env.MONGODB_URI || "mongodb://localhost/lisbeth"; 
@@ -88,6 +90,21 @@ app.get("/saved", (req, res) => {
         })
 
     }) 
+
+    // Clear posts 
+    app.get("/clear", (req, res) => {
+        console.log("clear"); 
+        db.Posts.deleteMany({})
+        db.Notes.deleteMany({})
+            .then(() => {
+                res.render("posts", {
+
+                })
+            })
+            .catch((err) => {
+                res.json(err); 
+            })
+    })
 
 
 
@@ -152,8 +169,20 @@ app.post("/posts/:id", function (req, res) {
         })
 })
 
+// Remove a note from a post 
+// app.put("/api/posts/:id", function (req, res) {
+//     console.log(req.body); 
 
-// Updates the article to isSaved 
+//     db.Posts.findOneAndUpdate( { _id: req.params.id }, req.body, { new: true })
+//         .then(function(dbPosts) {
+//             console.log("deleted a note"); 
+//             res.json(dbPosts); 
+//         })
+
+// })
+
+
+// Updates the post to isSaved 
 app.put("/api/posts/:id", function (req, res) {
     console.log(req.body); 
     console.log(req.params); 
@@ -165,6 +194,16 @@ app.put("/api/posts/:id", function (req, res) {
         })
 })
 
+app.put("/api/delete/:id", function (req, res) {
+    console.log(req.body); 
+    console.log(req.params); 
+    
+    db.Posts.findOneAndUpdate( { _id: req.params.id }, req.body, { new: true })
+        .then(function(dbPosts) {
+            console.log(dbPosts)
+            res.json(dbPosts); 
+        })
+})
 
 
 
