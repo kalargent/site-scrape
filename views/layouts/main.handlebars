@@ -30,7 +30,7 @@
     <!-- Font Awesome Kit Link -->
     <script src="https://kit.fontawesome.com/b7ff529076.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="../../public/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
 
 </head>
 
@@ -76,13 +76,24 @@
 
     })
 
-    // Scrape Posts 
+     // Scrape Posts 
      $("#scrape-list").on("click", function(event) {
         event.preventDefault(); 
         console.log("i clicked to clear the posts"); 
-        window.location.href = "/scrape";  
-        window.location.href = "/";  
-    })
+        
+        $.ajax("/scrape", {
+            type: "GET"
+        })
+        .then(function() {
+            console.log("finished scrape"); 
+            setTimeout(() => {
+                window.location.href = "/";
+            }, 1000)
+            
+        })
+        
+        
+    }) 
 
 </script>
     

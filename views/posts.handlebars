@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <!--START COL1 HERE -->
-        <div class="col-md-8 table-col">
+        <div class="col-md-12 table-col">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -17,14 +17,13 @@
                             <img src="{{this.image}}" width="200" style="float:left; margin-right: 10px">
                             <a href="{{this.link}}">{{this.title}}</a>
                             <p>{{this.summary}}</p>
+                            <div id="notes{{this.id}}" style="clear:both"></div>
 
                         </td>
-                        {{!-- <td>{{this.link}}</td> --}}
-                        {{!-- <td>{{this.summary}}</td> --}}
                         <td>
-                            <button data-id="{{this.id}}" class="save-btn"><i class="far fa-star"></i></button>
+                            <button data-id="{{this.id}}" data-saved="{{this.isSaved}}" class="btn save-btn">{{#if this.isSaved}}<i class="fas fa-star"></i>{{else}}<i class="far fa-star"></i>{{/if}}</button>
 
-                            <button data-id="{{this.id}}" class="notes-btn"><i class="far fa-sticky-note"></i></button>
+                            <button data-id="{{this.id}}" class="btn notes-btn"><i class="far fa-sticky-note"></i></button>
                         </td>
                     </tr>
                     {{/each}}
@@ -33,12 +32,7 @@
 
             <!--END THE COL HERE -->
         </div>
-        <div class="col-med-4" id="notes">
-            {{!-- <h6>this is a title of a post </h6>
-            <input id='titleinput' name='title'><br>
-            <textarea id='bodyinput' name='body'></textarea><br>
-            <button class='add' data-id='1236' id='savenote'>Add a Note</button> --}}
-        </div>
+       
     </div>
 </div>
 
@@ -51,8 +45,9 @@
     $(".notes-btn").on("click", function (event) {
         event.preventDefault();
         console.log("i clicked notes");
+        var thisId = $(this).attr("data-id");
         // $("#note-modal").modal("toggle");
-        $("#notes").empty();
+        $("#notes" + thisId).empty();
 
         var thisId = $(this).attr("data-id");
 
@@ -63,22 +58,22 @@
 
             .then(function (data) {
                 console.log(data);
-                $("#notes").append("<h6>" + data.title + "</h6>");
-                $("#notes").append("<input id='titleinput' name='title' > <br>");
-                $("#notes").append("<textarea id='bodyinput' name='body'></textarea> <br>");
-                $("#notes").append("<button class='add' data-id='" + data._id + "' id='savenote'>Add a Note</button>");
-                $("#notes").append("<button class='add' data-id='" + data._id + "' id='deletenote'>Remove Note</button>");
+                // $("#notes" + thisId).append("<h6>" + data.title + "</h6>");
+                $("#notes" + thisId).append("<input id='titleinput"+thisId+"' name='title' > <br>");
+                $("#notes" + thisId).append("<textarea id='bodyinput"+thisId+"' name='body'></textarea> <br>");
+                $("#notes" + thisId).append("<button class='add savenote' data-id='" + data._id + "' >Save Note</button>");
+                
 
                 if (data.note[0]) {
                     console.log(data.note[0]);
-                    $("#titleinput").val(data.note[0].title);
-                    $("#bodyinput").val(data.note[0].body);
+                    $("#titleinput"+thisId).val(data.note[0].title);
+                    $("#bodyinput"+thisId).val(data.note[0].body);
                 }
             })
 
     });
 
-    $(document).on("click", "#savenote", function () {
+    $(document).on("click", ".savenote", function () {
         console.log("i'm adding a note");
         var thisId = $(this).attr("data-id");
         console.log("saving a note to " + thisId)
@@ -87,76 +82,35 @@
             type: "POST",
             url: "/posts/" + thisId,
             data: {
-                title: $("#titleinput").val(),
-                body: $("#bodyinput").val()
+                title: $("#titleinput" + thisId).val(),
+                body: $("#bodyinput" + thisId).val()
             }
         })
+        .then (() => {
+            alert("Note was saved.");
+        })
     })
 
-    // Remove a Note 
-    $(document).on("click", "#deletenote", function () {
-        console.log("i want to remove this note");
-        {{!-- var thisId = $(this).attr("data-id");
-        console.log("removing a note from " + thisId)
 
-        $.ajax({
-            type: "PUT",
-            url: "posts" + thisId,
-        }) --}}
 
-    })
 
-    {{!-- // Save to favs
     $(".save-btn").on("click", function (event) {
         event.preventDefault();
         console.log("i clicked save");
 
         var thisId = $(this).attr("data-id");
+        var saved = ($(this).attr("data-saved") == "true"); 
         console.log(thisId);
+        console.log(saved); 
 
         $.ajax("/api/posts/" + thisId, {
-            type: "PUT",
-            data: { isSaved: true }
-        })
-            .then(
-                function () {
-                    // console.log(data)
-                    console.log(thisId + "saved as a fav")
-                }
-            )
-
-    }); --}}
-
-    $(".save-btn").on("click", function (event) {
-        event.preventDefault();
-        console.log("i clicked save");
-
-        var thisId = $(this).attr("data-id");
-        console.log(thisId);
-
-        if (thisId.isSaved === true) {
-            $ajax("/api/posts/" + thisId, {
                 type: "PUT",
-                data: { isSaved: false }
+                data: { isSaved: !saved }
             })
 
                 .then(function () {
-                    console.log(thisId + " removed from favs");
+                    location.reload(); 
                 })
-
-        } else {
-            $.ajax("/api/remove/" + thisId, {
-                type: "PUT",
-                data: { isSaved: true }
-            })
-                .then(
-                    function () {
-                        // console.log(data)
-                        console.log(thisId + " saved as a fav")
-                    }
-                )
-        }
-
     });
 
 

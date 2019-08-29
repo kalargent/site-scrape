@@ -131,14 +131,15 @@ app.get("/scrape", (req, res) => {
                     console.log(err); 
                 }
                 else {
-                    console.log(insert); 
+                    console.log(insert);  
                 }
             })
-                
+      
         })
+        res.send("Got the articles!"); 
     })
 
-    res.send("Got the articles!"); 
+    // res.send("Got the articles!"); 
 })
 
 // Get a specific post by ID and add a note 
