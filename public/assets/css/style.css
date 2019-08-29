@@ -18,3 +18,25 @@ h1 {
 hr {
     color: 1px #6D6E71;
 }
+
+.header {
+    background-color: #8b896a; 
+    color: whitesmoke;
+    font-family: 'Rasa', serif;
+    font-weight: bolder; 
+    font-size: x-large
+}
+
+a {
+    color:  #876a8b; 
+    font-weight: bolder; 
+    font-size: xx-large; 
+    font-family: 'Rasa', serif;
+}
+
+p {
+ color: #6D6E71; 
+ font-weight: bold;
+ font-family: 'Rasa', serif;
+ font-size: larger
+}

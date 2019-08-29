@@ -3,13 +3,7 @@
         <!--START COL1 HERE -->
         <div class="col-md-12 table-col">
             <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Title</th>
-                        {{!-- <th scope="col">Summary</th> --}}
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
+              
                 <tbody>
                     {{#each posts}}
                     <tr>
@@ -61,7 +55,7 @@
                 // $("#notes" + thisId).append("<h6>" + data.title + "</h6>");
                 $("#notes" + thisId).append("<input id='titleinput"+thisId+"' name='title' > <br>");
                 $("#notes" + thisId).append("<textarea id='bodyinput"+thisId+"' name='body'></textarea> <br>");
-                $("#notes" + thisId).append("<button class='add savenote' data-id='" + data._id + "' >Save Note</button>");
+                $("#notes" + thisId).append("<button class='add savenote btn' data-id='" + data._id + "' >Save Note</button>");
                 
 
                 if (data.note[0]) {
