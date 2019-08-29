@@ -1,0 +1,20 @@
+h1 {
+    font-family: 'Alfa Slab One', cursive;
+    padding-top: 10px; 
+    color: #6D6E71; 
+    font-size: 75px
+}
+
+.btn {
+     background-color: #876a8b; 
+     color: whitesmoke
+}
+
+.post-btn {
+    margin-bottom: 10px; 
+    width: 50px; 
+}
+
+hr {
+    color: 1px #6D6E71;
+}
