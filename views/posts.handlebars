@@ -52,9 +52,9 @@
 
             .then(function (data) {
                 console.log(data);
-                // $("#notes" + thisId).append("<h6>" + data.title + "</h6>");
-                $("#notes" + thisId).append("<input id='titleinput"+thisId+"' name='title' > <br>");
-                $("#notes" + thisId).append("<textarea id='bodyinput"+thisId+"' name='body'></textarea> <br>");
+                $("#notes" + thisId).append("<br> <h6>Add a Note </h6>");
+                $("#notes" + thisId).append("<input class='title-field' id='titleinput"+thisId+"' name='title' > <br><br>");
+                $("#notes" + thisId).append("<textarea class= 'note-body' id='bodyinput"+thisId+"' name='body'></textarea> <br>");
                 $("#notes" + thisId).append("<button class='add savenote btn' data-id='" + data._id + "' >Save Note</button>");
                 
 
