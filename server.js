@@ -117,7 +117,7 @@ app.get("/scrape", (req, res) => {
             var title = $(element).find(".entry-title").text().trim();
             var link = $(element).find(".entry-title").children().attr("href");
             var summary = $(element).find(".entry-content").text().trim();
-            var image = $(element).find(".entry-thumb").children().attr("src"); 
+            var image = $(element).find(".entry-thumb").children().attr("src");
             console.log(image); 
 
             db.Posts.create({
